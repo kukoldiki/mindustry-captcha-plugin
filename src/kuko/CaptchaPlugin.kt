@@ -7,5 +7,6 @@ class CaptchaPlugin : Plugin() {
     override fun init() {
         val events = PEvents()
         events.load()
+        PVars.rules.canGameOver = false
     }
 }

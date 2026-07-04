@@ -4,9 +4,12 @@ import arc.Core
 import arc.Events
 import kuko.PVars
 import kuko.net.NetServerPatched
+import kuko.net.packets.handleSendChatMessage
 import mindustry.Vars
 import mindustry.core.NetServer
 import mindustry.game.EventType
+import mindustry.gen.ClientSnapshotCallPacket
+import mindustry.gen.SendChatMessageCallPacket
 import mindustry.io.JsonIO
 
 class PEvents {
@@ -20,15 +23,19 @@ class PEvents {
             Core.app.addListener(Vars.netServer)
 
             Vars.content.blocks().each { bl ->
-                Vars.state.rules.bannedBlocks.add(bl)
+                PVars.rules.bannedBlocks.add(bl)
 
                 if(bl.isFloor && !bl.isOverlay)
                     PVars.floors.add(bl.asFloor())
             }
+
+            Vars.net.handleServer(SendChatMessageCallPacket::class.java, { con, packet ->
+                handleSendChatMessage(con, packet)
+            })
         }
 
         Events.on(EventType.PlayerLeave::class.java) { e ->
-            PVars.playerWorlds.remove(e.player.uuid())
+            PVars.playerStatuses.remove(e.player.uuid())
         }
     }
 }

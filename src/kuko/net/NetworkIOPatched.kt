@@ -3,6 +3,8 @@ package kuko.net
 import arc.util.io.Writes
 import kuko.PVars
 import kuko.Utils
+import kuko.Utils.getStatus
+import kuko.model.PlayerStatus
 import mindustry.Vars
 import mindustry.ctype.Content
 import mindustry.ctype.ContentType
@@ -49,8 +51,11 @@ object NetworkIOPatched {
                 PVars.saveWriter.writeContentHeader(stream)
                 PVars.saveWriter.writeContentPatches(stream)
 
-                val world = Utils.getWorld()
-                PVars.playerWorlds.put(player.uuid(), world)
+                val status = player.getStatus()
+                val world = status.world ?: Utils.getWorld(status)
+                status.world = world
+
+                PVars.playerStatuses.put(player.uuid(), status)
 
                 PVars.saveWriter.writeMap(stream, world)
                 PVars.saveWriter.writeTeamBlocks(stream)
