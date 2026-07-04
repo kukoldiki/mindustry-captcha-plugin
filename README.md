@@ -13,6 +13,8 @@
 
 * There is an option to enable/disable randomization of the background behind letters
 * do `config randomizeTiles true/false` (default false)
+* and also (im too lazy to translate this) read the screenshot.
+* <img width="1553" height="315" alt="e" src="https://github.com/user-attachments/assets/a7f35b28-2808-4be0-8261-08cd2d6cd7ae" />
 
 ### Preview
 * <img width="1057" height="495" alt="norandomtiles" src="https://github.com/user-attachments/assets/26c051a3-15f0-41c4-9585-c6e7aa86140f" />
